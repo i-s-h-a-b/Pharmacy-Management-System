@@ -1,0 +1,64 @@
+<!-- views/allDrugs.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Drugs</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Drugs</h1>
+
+    <% if (drugs && drugs.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Drug Name</th>
+                    <th>Company</th>
+                    <th>Price</th>
+                    <th>Expiry Date</th>
+                    <th>Drug Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% drugs.forEach(drug => { %>
+                    <tr>
+                        <td><%= drug.drugName %></td>
+                        <td><%= drug.company %></td>
+                        <td><%= drug.price %></td>
+                        <td><%= drug.expiryDate %></td>
+                        <td><%= drug.drugType %></td>
+                        <td>
+                            <button class="update-button" onclick="location.href='/updateDrug/<%= drug._id %>';">Update</button>
+                        </td>
+                        <td>
+                            <form action="/deleteDrug/<%= drug._id %>" method="post" onsubmit="return confirm('Are you sure you want to delete this drug?');">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No drugs found.</p>
+    <% } %>
+
+    <a href="/">Go Back</a>
+</body>
+</html>

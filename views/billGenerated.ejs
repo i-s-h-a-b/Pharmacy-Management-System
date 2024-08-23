@@ -1,0 +1,99 @@
+<!-- views/billGenerate.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .bill-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .bill-details {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .bill-details label {
+            font-weight: bold;
+        }
+
+        .total-amount {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-container">
+        <h1>Generated Bill</h1>
+
+        <div class="bill-details">
+            <label>Date:</label>
+            <span><%= bill.billDate.toDateString() %></span><br>
+
+            <label>Customer Name:</label>
+            <span><%= bill.customerName %></span><br>
+
+            <label>Drug Name:</label>
+            <span><%= bill.drugName %></span><br>
+
+            <label>Quantity:</label>
+            <span><%= bill.quantity %></span><br>
+
+            <label>Price:</label>
+            <span><%= bill.price %></span><br>
+
+            <label>Discount:</label>
+            <span><%= bill.discount %></span><br>
+
+            <label>Net Amount:</label>
+            <span><%= bill.netAmount %></span><br>
+
+            <label>Payment Mode:</label>
+            <span><%= bill.paymentMode %></span><br>
+        </div>
+
+        <div class="total-amount">
+            Total Amount: <%= bill.netAmount %>
+        </div>
+
+        <a class="back-link" href="/bill">Go Back</a>
+    </div>
+</body>
+</html>

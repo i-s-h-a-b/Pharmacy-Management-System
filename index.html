@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Information Input</title>
+</head>
+<body>
+    <h1>Drug Information Input Form</h1>
+    <form action="/submit" method="POST">
+        <!-- <label for="drug_id">Drug ID:</label>
+        <input type="text" id="drug_id" name="drug_id" required><br><br> -->
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" required><br><br>
+
+        <label for="drug_type">Drug Type:</label>
+        <input type="text" id="drug_type" name="drug_type" required><br><br>
+
+        <label for="expiry_date">Expiry Date:</label>
+        <input type="date" id="expiry_date" name="expiry_date" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required><br><br>
+
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

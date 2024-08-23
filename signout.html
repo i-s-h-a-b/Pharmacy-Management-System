@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logout Page</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20;
+        }
+
+        .logout-container {
+            text-align: center;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        button {
+            background-color: #0074D9;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056a0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logout-container">
+        <h1>Logout Page</h1>
+        <p>Do you wish to log out?</p>
+        <button onclick="confirmLogout()">Logout</button>
+    </div>
+    
+    <script>
+        // JavaScript function to handle the logout action
+        function confirmLogout() {
+            if (confirm("Do you want to log out?")) {
+                // User confirmed, perform logout actions here
+                // You can clear session data, cookies, or redirect the user to a login page.
+                // Example: Redirecting the user to the login page
+                window.location.href = "login.html"; // Replace "login.html" with the actual URL of your login page.
+            }
+            // If the user cancels, nothing happens, and they remain on the page.
+        }
+    </script>
+    
+    </body>
+    </html>

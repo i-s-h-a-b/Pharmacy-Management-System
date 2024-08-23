@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bill</title>
+    <style>
+        .navbar {
+            margin: 0;
+            height: 10vh;
+            background-color: #2d5fb0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            color: black;
+        }
+
+        #logo {
+            font-size: 35px;
+            font-weight: bold;
+            color: black;
+        }
+
+        #user-logo {
+            font-size: 24px;
+        }
+
+        #profile a {
+            font-size: 20px;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-right: 40px;
+            list-style: none;
+        }
+
+        .nav-links li:last-child {
+            margin-right: 0;
+        }
+
+        .nav-links li a {
+            font-size: 30px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links li a:active {
+            color: #93cdd6;
+        }
+
+        .nav-links li a:hover {
+            color: #d48fd7;
+        }
+
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 10%;
+        }
+
+        .form-container {
+            padding: 20px;
+            font-size: 25px;
+            width: 750px;
+            height: 400px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[readonly] {
+            background-color: #f2f2f2;
+            border: none;
+        }
+
+        input[type="submit"] {
+            width: 30%;
+            background-color: #ffffff;
+            color: black;
+            font-size: 18px;
+            border: 2px solid #0b0808;
+            padding: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #77abff;
+        }
+
+        #addItem {
+            background-color: #3399FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #addItem:hover {
+            background-color: #2655A0;
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated-element {
+            animation: fadeIn 1s;
+        }
+
+        .bottom-left-image {
+            width: 500px;
+            height: 600px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div id="logo">    </div>
+        <div id="nav-links">
+            <ul class="nav-links">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/customer">Customer</a></li>
+                <li><a href="/drug">Drug</a></li>
+                <li><a href="/stock">Stock Order</a></li>
+                <li><a href="/bill">Bill</a></li>
+            </ul>
+        </div>
+        <div id="profile"><a href="profile">Profile</a></div>
+    </div>
+
+    <div class="center-container">
+        <div class="form-container animated-element">
+            <form action="/bill" method="post">
+                <label for="billDate">Date:</label>
+                <input type="date" id="billDate" name="billDate" readonly><br><br>
+
+                <label for="customerName">Customer Name:</label>
+                <input type="text" id="customerName" name="customerName">
+
+                <label for="drugName">Drug Name:</label>
+                <input type="text" id="drugName" name="drugName">
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price">
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity">
+
+                <label for="discount">Discount:</label>
+                <input type="number" id="discount" name="discount">
+
+                <label for="netAmount">Net Amount:</label>
+                <input type="text" id="netAmount" name="netAmount" readonly>
+
+                <label for="paymentMode">Payment Mode:</label>
+                <select id="paymentMode" name="paymentMode">
+                    <option value="Cash">Cash</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                </select>
+
+                <!-- <label for="items">Items:</label>
+                <div id="itemContainer">
+                     Item fields will be added here 
+                </div>
+                <button id="addItem">Add Item</button>
+                <br>
+                <br> -->
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get references to the input fields
+        const billDateInput = document.getElementById("billDate");
+        const priceInput = document.getElementById("price");
+        const quantityInput = document.getElementById("quantity");
+        const discountInput = document.getElementById("discount");
+        const netAmountInput = document.getElementById("netAmount");
+        const itemContainer = document.getElementById('itemContainer');
+        const addItemButton = document.getElementById('addItem');
+
+        // Set the initial value of the "Date" input field to the current date
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+        const day = currentDate.getDate().toString().padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+        billDateInput.value = formattedDate;
+
+        // Add an event listener to update the net amount when the input fields change
+        priceInput.addEventListener("input", updateNetAmount);
+        quantityInput.addEventListener("input", updateNetAmount);
+        discountInput.addEventListener("input", updateNetAmount);
+
+        // Function to add item fields when the "Add Item" button is clicked
+        addItemButton.addEventListener('click', function () {
+            const newItemGroup = document.createElement('div');
+            const itemNameField = document.createElement('input');
+            const quantityField = document.createElement('input');
+            const priceField = document.createElement('input');
+
+            itemNameField.type = 'text';
+            itemNameField.name = 'items[]';
+            itemNameField.placeholder = 'Item Name';
+
+            quantityField.type = 'number';
+            quantityField.name = 'quantities[]';
+            quantityField.placeholder = 'Quantity';
+            quantityField.min = '0';
+
+            priceField.type = 'number';
+            priceField.name = 'prices[]';
+            priceField.placeholder = 'Price';
+            priceField.readOnly = true;
+
+            newItemGroup.appendChild(itemNameField);
+            newItemGroup.appendChild(quantityField);
+            newItemGroup.appendChild(priceField);
+
+            itemContainer.appendChild(newItemGroup);
+        });
+
+        // Function to update the net amount
+        function updateNetAmount() {
+            const price = parseFloat(priceInput.value) || 0;
+            const quantity = parseInt(quantityInput.value) || 0;
+            const discount = parseFloat(discountInput.value) || 0;
+
+            const totalAmount = price * quantity;
+            const discountAmount = (totalAmount * discount) / 100;
+            const netAmount = totalAmount - discountAmount;
+
+            netAmountInput.value = netAmount.toFixed(2);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bill</title>
+    <style>
+        .navbar {
+            margin: 0;
+            height: 10vh;
+            background-color: #2d5fb0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            color: black;
+        }
+
+        #logo {
+            font-size: 35px;
+            font-weight: bold;
+            color: black;
+        }
+
+        #user-logo {
+            font-size: 24px;
+        }
+
+        #profile a {
+            font-size: 20px;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-right: 40px;
+            list-style: none;
+        }
+
+        .nav-links li:last-child {
+            margin-right: 0;
+        }
+
+        .nav-links li a {
+            font-size: 30px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links li a:active {
+            color: #93cdd6;
+        }
+
+        .nav-links li a:hover {
+            color: rgb(225, 122, 93);
+        }
+
+        .container {
+            font-size: 25px;
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        input[readonly] {
+            background-color: #f2f2f2;
+            border: none;
+        }
+
+        input[type="submit"] {
+            width: 30%;
+            background-color: #fbf3f3;
+            color: black;
+            border: 2px solid #0b0808;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3a82f7;
+        }
+
+        #addItem {
+            background-color: #3399FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #addItem:hover {
+            background-color: #2655A0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated-element {
+            animation: fadeIn 1s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div id="logo">    </div>
+        <div id="nav-links">
+            <ul class="nav-links">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/customer">Customer</a></li>
+                <li><a href="/drug">Drug</a></li>
+                <li><a href="/stock">Stock Order</a></li>
+                <li><a href="/bill">Bill</a></li>
+            </ul>
+        </div>
+        <div id="profile"><a href="profile">Profile</a></div>
+    </div>
+    <br><br><br>
+    <div class="container">
+
+        <form action="/stock" method="post">
+            <!-- <label for="order_id">Order ID</label> -->
+            <!-- <input type="text" name="order_id" readonly> -->
+            <!-- <br><br> -->
+            <label for="supplierName">Supplier Name</label>
+            <input type="text" name="supplierName">
+            <br><br>
+            <label for="dateOfOrder">Date of Order</label>
+            <input type="date" id="dateOfOrder" name="dateOfOrder" readonly>
+            <br><br>
+            <label for="items">Items:</label>
+            <div id="itemContainer">
+
+            </div>
+            <button id="addItem" type="button">Add Item</button>
+            <br>
+            <br>
+            <label for="totalAmount">Total Amount</label>
+            <input type="number" id="totalAmount" name="totalAmount" min="0" readonly>
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        const itemContainer = document.getElementById('itemContainer');
+        const addItemButton = document.getElementById('addItem');
+
+        addItemButton.addEventListener('click', function () {
+            const newItemGroup = document.createElement('div');
+
+            // Item Name
+            const itemNameField = document.createElement('input');
+            itemNameField.type = 'text';
+            itemNameField.name = 'items[item_name][]'; // Use square brackets to indicate an array
+            itemNameField.placeholder = 'Item Name';
+
+            // Quantity
+            const quantityField = document.createElement('input');
+            quantityField.type = 'number';
+            quantityField.name = 'items[quantity][]'; // Use square brackets to indicate an array
+            quantityField.placeholder = 'Quantity';
+            quantityField.min = '0';
+
+            // Price
+            const priceField = document.createElement('input');
+            priceField.type = 'number';
+            priceField.name = 'items[price][]'; // Use square brackets to indicate an array
+            priceField.placeholder = 'Price';
+
+            // Add each field to the new item group
+            newItemGroup.appendChild(itemNameField);
+            newItemGroup.appendChild(quantityField);
+            newItemGroup.appendChild(priceField);
+
+            itemContainer.appendChild(newItemGroup);
+
+            // Add event listeners for calculating total amount
+            itemNameField.addEventListener("input", updateTotalAmount);
+            quantityField.addEventListener("input", updateTotalAmount);
+            priceField.addEventListener("input", updateTotalAmount);
+        });
+
+        // Function to calculate the total amount
+        function updateTotalAmount() {
+            const itemGroups = document.querySelectorAll("#itemContainer > div");
+            let totalAmount = 0;
+
+            itemGroups.forEach((itemGroup) => {
+                const itemName = itemGroup.querySelector('input[name="items[item_name][]"]').value;
+                const quantity = parseFloat(itemGroup.querySelector('input[name="items[quantity][]"]').value) || 0;
+                const price = parseFloat(itemGroup.querySelector('input[name="items[price][]"]').value) || 0;
+
+                totalAmount += quantity * price;
+            });
+
+            const totalAmountInput = document.getElementById("totalAmount");
+            totalAmountInput.value = totalAmount.toFixed(2);
+        }
+
+    </script>
+</body>
+
+</html>

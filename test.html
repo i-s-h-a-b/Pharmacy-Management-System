@@ -1,0 +1,176 @@
+<!-- public/signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .signup-container {
+      max-width: 400px;
+      margin: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+    color: rgb(51, 51, 51)808;
+    text-align: center;
+    position: relative;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: rgb(4, 222, 219);
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: rgb(31, 227, 5);
+    }
+  </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Signup</h1>
+        <form action="/signup" method="post">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" pattern="[A-Za-z ]+" title="Only letters and spaces are allowed" required>
+    
+          <label for="contact">Contact:</label>
+          <input type="text" id="contact" name="contact" pattern="[0-9]{1,10}" title="Only numbers with a maximum of 10 characters are allowed" required>
+    
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Enter a valid email address" required>
+    
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" pattern=".{6,}" title="Password must be at least 6 characters" required>
+    
+          <button type="submit">Sign Up</button>
+        </form>
+    
+        <p>Already a user? <a class="login-link" href="/login">Log In</a></p>
+      </div>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>SignUp</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper login">
+        <div class="container">
+            <div class="col-left">
+                <div class="login-text">
+                </div>
+            </div>
+            <h1>Signup</h1>
+            <form action="/signup" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="contact">Contact:</label>
+                <input type="text" id="contact" name="contact" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="login">Sign in</a></p>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const registrationForm = document.getElementById("registrationForm");
+            const passwordInput = document.getElementById("password");
+            // const confirmPasswordInput = document.getElementById("confirmPassword");
+
+            registrationForm.addEventListener("submit", function (e) {
+
+
+                if (passwordInput.value.length < 6) {
+                    e.preventDefault();
+                    alert("Password should be at least 6 characters.");
+                }
+            });
+        });
+        function signUp() {
+            window.location.href = "/login";
+        }
+
+    </script>
+</body>
+
+</html> -->
